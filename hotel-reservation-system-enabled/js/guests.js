@@ -1,8 +1,3 @@
-// ==========================================================
-// GUESTS DATA ENTRY FORM (js/guests.js)  -  Exam: Course field added to the form
-// ==========================================================
-
-// Makes the next guest number, for example G-0003
 function makeGuestNo() {
   let highest = 0;
   Database.getAll("guests").forEach(function (guest) {
@@ -10,13 +5,9 @@ function makeGuestNo() {
   });
   return "G-" + String(highest + 1).padStart(4, "0");
 }
-
-// Draws the Guests page: the data entry form + the list of guests
 function showGuestsPage(message) {
   const guests = Database.getAll("guests");
 
-  // --- STEP 3: the form, with the NEW Course field ---
-  // --- STEP 4: the dropdown options come from the courses table ---
   let html =
     '<div class="panel">' +
       '<h2>Add Guest</h2>' +
@@ -46,7 +37,6 @@ function showGuestsPage(message) {
       '<div id="guest-message">' + (message || "") + '</div>' +
     '</div>';
 
-  // --- STEP 6: the list now shows the Course of each record ---
   html +=
     '<div class="panel">' +
       '<h2>Guest Records <span class="count">(' + guests.length + ' records)</span></h2>' +
@@ -71,7 +61,6 @@ function showGuestsPage(message) {
   html += '</table></div>';
   contentArea.innerHTML = html;
 
-  // --- STEP 5: SAVE the guest together with the selected course ---
   document.getElementById("btn-save-guest").addEventListener("click", function () {
     const courseValue = document.getElementById("guest-course").value;
 
@@ -82,9 +71,6 @@ function showGuestsPage(message) {
       contact_no: document.getElementById("guest-contact").value.trim(),
       email:      document.getElementById("guest-email").value.trim()
     };
-
-    // The dropdown gives text, but course_id must be a number.
-    // If no course was chosen we simply do not save a course_id.
     if (courseValue !== "") {
       record.course_id = Number(courseValue);
     }
@@ -99,7 +85,6 @@ function showGuestsPage(message) {
     }
   });
 
-  // --- DELETE buttons ---
   document.querySelectorAll(".btn-delete-guest").forEach(function (button) {
     button.addEventListener("click", function () {
       if (confirm("Delete this guest?")) {
