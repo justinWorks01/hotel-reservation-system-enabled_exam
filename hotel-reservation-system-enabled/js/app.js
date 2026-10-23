@@ -1,10 +1,3 @@
-/* ==========================================
-   MAIN APPLICATION (js/app.js)
-   Handles: menu, page switching, dashboard, logout
-   ========================================== */
-
-// ----- 1. THE MENU -----
-// Each item has an id, a label, and the stage where it will be built.
 const menuItems = [
   { id: "dashboard",    label: "📊 Dashboard",    stage: "Stage 1" },
   { id: "rooms",        label: "🛏️ Rooms",        stage: "Stage 3 (Labs 3-5)" },
@@ -21,14 +14,12 @@ const menuItems = [
   { id: "logout",       label: "⏻ Logout",        stage: "" }
 ];
 
-// Get the parts of the page we need to change
 const menuList     = document.getElementById("menu");
 const contentArea  = document.getElementById("content");
 const pageTitle    = document.getElementById("page-title");
 const dbStatus     = document.getElementById("db-status");
 const logoutScreen = document.getElementById("logout-screen");
 
-// Build the menu links on the screen
 function buildMenu() {
   menuItems.forEach(function (item) {
     const li = document.createElement("li");
@@ -43,26 +34,21 @@ function buildMenu() {
   });
 }
 
-// ----- 2. SHOWING A PAGE -----
 function showPage(pageId) {
 
-  // Logout is not a page, it has its own behavior
   if (pageId === "logout") {
     logout();
     return;
   }
 
-  // Highlight the selected menu item
   menuItems.forEach(function (item) {
     document.getElementById("menu-" + item.id).classList.remove("active");
   });
   document.getElementById("menu-" + pageId).classList.add("active");
 
-  // Find the menu item to get its label
   const item = menuItems.find(function (m) { return m.id === pageId; });
   pageTitle.textContent = item.label.split(" ").slice(1).join(" ");   // remove the emoji
 
-  // Show the dashboard, or a "coming soon" page for modules not yet built
   if (pageId === "dashboard") {
     showDashboard();
   } else if (pageId === "database") {
@@ -77,7 +63,6 @@ function showPage(pageId) {
   }
 }
 
-// ----- 3. THE DASHBOARD -----
 function showDashboard() {
 
   // Count the rooms that are available
@@ -101,7 +86,6 @@ function showDashboard() {
     '</div>';
 }
 
-// Helper that creates the HTML of one dashboard card
 function makeCard(label, number) {
   return '<div class="card">' +
            '<div class="label">' + label + '</div>' +
@@ -109,7 +93,6 @@ function makeCard(label, number) {
          '</div>';
 }
 
-// ----- 4. PAGES NOT YET BUILT -----
 function showComingSoon(item) {
   contentArea.innerHTML =
     '<div class="panel">' +
@@ -118,7 +101,6 @@ function showComingSoon(item) {
     '</div>';
 }
 
-// ----- 5. LOGOUT -----
 function logout() {
   if (confirm("Are you sure you want to log out?")) {
     logoutScreen.classList.remove("hidden");
@@ -130,7 +112,6 @@ document.getElementById("login-again").addEventListener("click", function () {
   showPage("dashboard");
 });
 
-// ----- 6. START THE APPLICATION -----
 function startApp() {
   // Connect to the database and show the result in the top bar
   if (Database.connect()) {
