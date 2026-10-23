@@ -1,22 +1,3 @@
-/* ==========================================
-   DATABASE DESIGN (js/schema.js)
-   ------------------------------------------
-   This file is the "blueprint" of the database (Stage 2).
-   It describes every table, its primary key (pk), its fields,
-   and the rules (constraints) each field must follow.
-
-   Field options:
-     type        : "text", "number", "date" or "datetime"
-     required    : true  -> the field cannot be empty
-     unique      : true  -> no two records can have the same value
-     allowed     : [..]  -> the value must be one of these choices
-     min         : the smallest number allowed
-     references  : { table, field } -> FOREIGN KEY to another table
-
-   Tables are listed "parents first" so that a table is always
-   created after the tables it depends on.
-   ========================================== */
-
 const SCHEMA = {
 
   room_types: {
