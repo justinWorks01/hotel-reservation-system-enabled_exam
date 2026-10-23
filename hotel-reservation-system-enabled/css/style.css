@@ -1,4 +1,3 @@
-
 :root {
   --primary: #1f3a5f;
   --primary-light: #2f5d8f;
@@ -27,13 +26,12 @@ body {
   display: none !important;
 }
 
-/* ----- Overall layout: sidebar on the left, content on the right ----- */
+
 #app {
   display: flex;
   min-height: 100vh;
 }
 
-/* ----- Sidebar ----- */
 #sidebar {
   width: 240px;
   background: var(--primary);
@@ -67,7 +65,7 @@ body {
   background: var(--primary-light);
 }
 
-/* The page currently open gets the "active" class */
+
 #menu li a.active {
   background: var(--primary-light);
   border-left-color: var(--accent);
@@ -75,7 +73,6 @@ body {
   font-weight: bold;
 }
 
-/* ----- Right side ----- */
 #main-area {
   flex: 1;
   display: flex;
@@ -132,7 +129,6 @@ body {
   color: var(--muted);
 }
 
-/* ----- Dashboard cards ----- */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -179,7 +175,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* ----- Buttons ----- */
 .btn {
   background: var(--primary);
   color: var(--white);
@@ -194,7 +189,6 @@ body {
   background: var(--primary-light);
 }
 
-/* ----- Logout screen ----- */
 #logout-screen {
   position: fixed;
   inset: 0;
@@ -221,7 +215,6 @@ body {
   color: var(--muted);
 }
 
-/* ----- Small screens (phones) ----- */
 @media (max-width: 700px) {
   #app {
     flex-direction: column;
@@ -234,10 +227,6 @@ body {
     flex-wrap: wrap;
   }
 }
-
-/* ==========================================
-   STAGE 2 ADDITIONS (Database page)
-   ========================================== */
 
 .data-table {
   width: 100%;
@@ -285,10 +274,6 @@ body {
   list-style: none;
   line-height: 1.9;
 }
-
-/* ==========================================
-   COURSE MODULE STYLES (Exam)
-   ========================================== */
 
 .form-grid {
   display: grid;
