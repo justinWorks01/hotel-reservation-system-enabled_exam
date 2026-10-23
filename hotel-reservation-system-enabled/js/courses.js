@@ -1,8 +1,3 @@
-// ==========================================================
-// COURSES MODULE (js/courses.js)  -  Exam: Course Management (CRUD) and dropdown helpers
-// ==========================================================
-
-// ----- HELPER: makes text safe to put inside HTML -----
 function escapeHtml(text) {
   return String(text === undefined || text === null ? "" : text)
     .replace(/&/g, "&amp;")
@@ -11,8 +6,6 @@ function escapeHtml(text) {
     .replace(/"/g, "&quot;");
 }
 
-// ----- STEP 4: DROPDOWN OPTIONS COME FROM THE courses TABLE -----
-// Returns the <option> tags. selectedId = the course to pre-select (optional).
 function buildCourseOptions(selectedId) {
   let html = '<option value="">Select a course</option>';
 
@@ -26,21 +19,16 @@ function buildCourseOptions(selectedId) {
   return html;
 }
 
-// ----- STEP 6 HELPER: turns a course_id into the course name -----
 function getCourseName(courseId) {
   if (!courseId) return "-";
   const course = Database.getById("courses", courseId);
   return course ? course.course_name : "-";
 }
 
-// ----- STEP 1 and 2: THE COURSE MANAGEMENT PAGE (CRUD) -----
-// message = optional text shown under the form
-// editId  = if given, the form is used to EDIT that course
 function showCoursesPage(message, editId) {
   const editing = editId ? Database.getById("courses", editId) : null;
   const courses = Database.getAll("courses");
 
-  // --- The form (Create and Update) ---
   let html =
     '<div class="panel">' +
       '<h2>' + (editing ? "Edit Course" : "Add Course") + '</h2>' +
@@ -59,7 +47,6 @@ function showCoursesPage(message, editId) {
       '<div id="course-message">' + (message || "") + '</div>' +
     '</div>';
 
-  // --- The list (Read) with Edit and Delete buttons ---
   html +=
     '<div class="panel">' +
       '<h2>View Courses <span class="count">(' + courses.length + ' records)</span></h2>' +
@@ -85,7 +72,6 @@ function showCoursesPage(message, editId) {
   html += '</table></div>';
   contentArea.innerHTML = html;
 
-  // --- CREATE / UPDATE: when the save button is clicked ---
   document.getElementById("btn-save-course").addEventListener("click", function () {
     const record = {
       course_name: document.getElementById("course-name").value.trim(),
@@ -102,27 +88,24 @@ function showCoursesPage(message, editId) {
     if (result.ok) {
       showCoursesPage('<p class="msg-ok">Course saved successfully.</p>');
     } else {
-      // Show the errors but keep what the user typed
+     
       document.getElementById("course-message").innerHTML =
         '<p class="msg-error">' + result.errors.join("<br>") + '</p>';
     }
   });
 
-  // --- Cancel editing ---
   if (editing) {
     document.getElementById("btn-cancel-course").addEventListener("click", function () {
       showCoursesPage();
     });
   }
 
-  // --- EDIT buttons: reload the page with the form filled in ---
   document.querySelectorAll(".btn-edit-course").forEach(function (button) {
     button.addEventListener("click", function () {
       showCoursesPage("", Number(button.dataset.id));
     });
   });
 
-  // --- DELETE buttons ---
   document.querySelectorAll(".btn-delete-course").forEach(function (button) {
     button.addEventListener("click", function () {
       if (confirm("Delete this course?")) {
