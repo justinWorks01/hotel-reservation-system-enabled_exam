@@ -1,10 +1,3 @@
-/* ==========================================
-   DATABASE PAGE (js/database-page.js)  -  Stage 2
-   Shows the tables, fields, keys and relationships, and
-   has buttons to load sample data and test the constraints.
-   ========================================== */
-
-// Turns the rules of one field into readable text
 function describeConstraints(field) {
   const parts = [];
   if (field.required) parts.push("Required");
@@ -14,7 +7,6 @@ function describeConstraints(field) {
   return parts.length > 0 ? parts.join(", ") : "-";
 }
 
-// Builds the HTML table (data dictionary) of one database table
 function buildTableDictionary(tableName) {
   const schema = SCHEMA[tableName];
 
@@ -23,11 +15,9 @@ function buildTableDictionary(tableName) {
     '<table class="data-table">' +
     '<tr><th>Field</th><th>Type</th><th>Key</th><th>Constraints</th></tr>';
 
-  // The primary key row
   html += '<tr><td><strong>' + schema.pk + '</strong></td><td>number</td>' +
           '<td><span class="key pk">PK</span></td><td>Auto-number, unique</td></tr>';
 
-  // All other fields
   for (const name in schema.fields) {
     const f = schema.fields[name];
     let key = "";
@@ -45,7 +35,6 @@ function buildTableDictionary(tableName) {
   return html;
 }
 
-// Builds the list of relationships (all the foreign keys)
 function buildRelationships() {
   let html = '<div class="panel"><h2>Relationships (Foreign Keys)</h2><ul class="plain-list">';
 
@@ -63,7 +52,6 @@ function buildRelationships() {
   return html;
 }
 
-// Draws the whole Database page. "message" is optional text shown under the buttons.
 function showDatabasePage(message) {
   let html =
     '<div class="panel">' +
@@ -102,7 +90,6 @@ function showDatabasePage(message) {
   });
 }
 
-// Tries to break the rules on purpose. Every test SHOULD be rejected.
 function runConstraintTests() {
   const room = Database.getAll("rooms")[0];
   if (!room) {
